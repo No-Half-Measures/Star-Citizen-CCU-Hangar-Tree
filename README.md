@@ -2,6 +2,8 @@
 
 Web app that turns a **hangarlink.json** export into an interactive CCU (Cross-Chassis Upgrade) graph. Uses [vis-network](https://visjs.github.io/vis-network/) for layout and pan/zoom; ships and upgrades appear as nodes, CCU steps as edges.
 
+**Live version (GitHub Pages):** [no-half-measures.github.io/Star-Citizen-CCU-Hangar-Tree](https://no-half-measures.github.io/Star-Citizen-CCU-Hangar-Tree/) — open in your browser and upload your JSON; no clone required.
+
 ## Features
 
 - **Hangar import**: Choose a `.json` file or drag it onto the upload area; the graph rebuilds from pledges and upgrades in the file.
@@ -13,14 +15,14 @@ Web app that turns a **hangarlink.json** export into an interactive CCU (Cross-C
 
 ## How to use
 
-1. Open `index.html` in a modern browser (JavaScript enabled). The first run needs network access so **vis-network** and **Feather** icons can load from the CDN.
+1. Use the [hosted page](https://no-half-measures.github.io/Star-Citizen-CCU-Hangar-Tree/) or open `index.html` locally in a modern browser (JavaScript enabled). You need network access so **vis-network** and **Feather** icons can load from the CDN.
 2. Upload your `hangarlink.json` (same format as typical Hangar XPLORer / hangar exports).
 3. Use **Controls** to filter the graph; click a node to open the detail panel.
 4. Unrelated CCU trees may appear as separate components; that is normal when paths do not share a hull.
 
 ## What gets saved locally
 
-All of this is stored in **localStorage** for this origin only:
+All of this is stored in **localStorage** for this origin only (the [GitHub Pages URL](https://no-half-measures.github.io/Star-Citizen-CCU-Hangar-Tree/) and a local `file://` open each have their own storage):
 
 | Key | Purpose |
 | --- | --- |
@@ -37,10 +39,6 @@ Clearing site data for the page removes these. Uploading a new JSON replaces the
 - `styles.css` — Layout and theme
 - `app.js` — Parse hangar, build nodes/edges, vis-network wiring
 - `README.md` — This file
-
-## Browser support
-
-Recent Chrome, Firefox, Edge, or Safari. If the graph area shows a library load error, check network/ad blockers and reload.
 
 ## Legend (quick reference)
 
