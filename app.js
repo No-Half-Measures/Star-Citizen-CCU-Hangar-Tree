@@ -65,6 +65,34 @@ function StashHangarJson(txt) {
     }
 }
 
+const HANGAR_LINK_CHROME_EXT =
+    'https://chromewebstore.google.com/detail/hangar-link-connect/faogejfedelmehbgclhooomkocdbdoig';
+const HANGAR_LINK_FIREFOX_EXT =
+    'https://addons.mozilla.org/en-US/firefox/addon/hangar-link-connect/';
+
+function HangarLinkExtensionKind() {
+    const ua = navigator.userAgent;
+    if (/Firefox\//.test(ua)) return 'firefox';
+    if (/Edg\//.test(ua) || /OPR\//.test(ua) || /Chrome\//.test(ua) || /CriOS\//.test(ua)) return 'chromium';
+    return 'other';
+}
+
+function WireHangarLinkCta() {
+    const root = document.getElementById('hangarLinkStores');
+    if (!root) return;
+    const kind = HangarLinkExtensionKind();
+    const link = (href, label) =>
+        `<a class="hangar-link-btn" href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+    if (kind === 'firefox') {
+        root.innerHTML = link(HANGAR_LINK_FIREFOX_EXT, 'Install extension — Firefox');
+    } else if (kind === 'chromium') {
+        root.innerHTML = link(HANGAR_LINK_CHROME_EXT, 'Install extension — Chrome / Edge');
+    } else {
+        root.innerHTML =
+            link(HANGAR_LINK_CHROME_EXT, 'Chrome Web Store') + link(HANGAR_LINK_FIREFOX_EXT, 'Firefox Add-ons');
+    }
+}
+
 function insTag(t) {
     if (!t || t === 'insNone') return '';
 
@@ -93,6 +121,7 @@ function insTag(t) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    WireHangarLinkCta();
     if (typeof feather !== 'undefined') {
         feather.replace({ width: 20, height: 20, 'stroke-width': 1.85, class: 'graph-toolbar-icon' });
     }

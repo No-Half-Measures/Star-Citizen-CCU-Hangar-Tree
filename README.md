@@ -20,6 +20,15 @@ Web app that turns a **hangarlink.json** export into an interactive CCU (Cross-C
 3. Use **Controls** to filter the graph; click a node to open the detail panel.
 4. Unrelated CCU trees may appear as separate components; that is normal when paths do not share a hull.
 
+## Getting `hangarlink.json`
+
+Use **[hangar.link](https://hangar.link)** with the **Hangar Link Connect** extension so your RSI hangar data (pledges, buyback, etc.) can be exported as JSON:
+
+- **Chrome / Edge / Chromium:** [Hangar Link Connect — Chrome Web Store](https://chromewebstore.google.com/detail/hangar-link-connect/faogejfedelmehbgclhooomkocdbdoig)
+- **Firefox:** [Hangar Link Connect — Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/hangar-link-connect/)
+
+The [hosted visualizer](https://no-half-measures.github.io/Star-Citizen-CCU-Hangar-Tree/) also shows the store link that matches your browser when you open it there.
+
 ## What gets saved locally
 
 All of this is stored in **localStorage** for this origin only (the [GitHub Pages URL](https://no-half-measures.github.io/Star-Citizen-CCU-Hangar-Tree/) and a local `file://` open each have their own storage):
