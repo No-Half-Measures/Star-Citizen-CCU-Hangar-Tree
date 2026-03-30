@@ -10,7 +10,7 @@ Web app that turns a **hangarlink.json** export into an interactive CCU (Cross-C
 - **View options**: Show owned-only, upgrades, ships, and buyback pledges independently; optional **hide redundant CCU** (edges into hulls you already own as full ships).
 - **Exclude list**: Search and uncheck ships or upgrades to hide them from the graph (preferences persist).
 - **Custom items**: Add synthetic upgrades or ships (slugs + labels) so you can plan chains not yet in the hangar.
-- **Graph UI**: Zoom in/out, fit view, and a sidebar legend for node colors and edge styles (standard CCU, redundant-target dashed links, buyback).
+- **Graph UI**: Zoom in/out, fit view, and a collapsible **legend** (node colors and edge styles: standard CCU, redundant-target dashed links, buyback).
 - **Persistence**: The last uploaded hangar JSON and your sidebar choices are stored in the browser (see below).
 
 ## How to use
@@ -39,6 +39,7 @@ All of this is stored in **localStorage** for this origin only (the [GitHub Page
 | `ccuTree_excludedItems` | Slugs excluded via the checklist |
 | `ccuTree_customItems` | Custom upgrades/ships you added |
 | `ccuTree_viewOptions` | Checkbox state for view options |
+| `ccuTree_legendCollapsed` | Whether the legend is collapsed (`1` / absent) |
 
 Clearing site data for the page removes these. Uploading a new JSON replaces the cached hangar without wiping exclusions and custom rows unless you change them yourself.
 

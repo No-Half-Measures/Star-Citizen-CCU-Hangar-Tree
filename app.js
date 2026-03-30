@@ -1,4 +1,5 @@
 const KEY_EXPORT = 'ccuTree_hangarJson';
+const KEY_LEGEND_COLLAPSED = 'ccuTree_legendCollapsed';
 const FONT_VIS = 'DM Sans';
 
 const viewDefaults = {
@@ -77,6 +78,34 @@ function HangarLinkExtensionKind() {
     return 'other';
 }
 
+function WireGraphLegendToggle() {
+    const aside = document.getElementById('graphLegend');
+    const btn = document.getElementById('graphLegendToggle');
+    if (!aside || !btn) return;
+
+    function ApplyLegendCollapsed(collapsed) {
+        aside.classList.toggle('collapsed', collapsed);
+        btn.setAttribute('aria-expanded', String(!collapsed));
+        const label = collapsed ? 'Expand legend' : 'Collapse legend';
+        btn.title = label;
+        btn.setAttribute('aria-label', label);
+    }
+
+    try {
+        ApplyLegendCollapsed(localStorage.getItem(KEY_LEGEND_COLLAPSED) === '1');
+    } catch (_) {
+        ApplyLegendCollapsed(false);
+    }
+
+    btn.addEventListener('click', () => {
+        const collapsed = !aside.classList.contains('collapsed');
+        ApplyLegendCollapsed(collapsed);
+        try {
+            localStorage.setItem(KEY_LEGEND_COLLAPSED, collapsed ? '1' : '0');
+        } catch (_) {}
+    });
+}
+
 function WireHangarLinkCta() {
     const root = document.getElementById('hangarLinkStores');
     if (!root) return;
@@ -125,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof feather !== 'undefined') {
         feather.replace({ width: 20, height: 20, 'stroke-width': 1.85, class: 'graph-toolbar-icon' });
     }
+    WireGraphLegendToggle();
     PullStorage();
 
     let tries = 0;

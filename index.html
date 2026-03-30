@@ -102,19 +102,35 @@
                         <i data-feather="maximize-2"></i>
                     </button>
                 </div>
-                <aside class="graph-legend" aria-label="Legend">
-                    <h4 class="graph-legend-title">Nodes</h4>
-                    <ul class="graph-legend-list">
-                        <li><span class="legend-swatch legend-swatch-node legend-full"></span> Full ship (standalone pledge)</li>
-                        <li><span class="legend-swatch legend-swatch-node legend-owned"></span> In hangar (CCU chain / ticket)</li>
-                        <li><span class="legend-swatch legend-swatch-node legend-unowned"></span> Custom or filtered-out context</li>
-                    </ul>
-                    <h4 class="graph-legend-title">Links</h4>
-                    <ul class="graph-legend-list">
-                        <li><span class="legend-line legend-line-solid legend-blue"></span> Standard CCU</li>
-                        <li><span class="legend-line legend-line-dashed legend-amber"></span> CCU into a hull you already own</li>
-                        <li><span class="legend-line legend-line-solid legend-gray"></span> Buyback (when shown)</li>
-                    </ul>
+                <aside class="graph-legend" id="graphLegend" aria-label="Legend">
+                    <div class="graph-legend-header">
+                        <span class="graph-legend-heading">Legend</span>
+                        <button
+                            type="button"
+                            class="graph-legend-toggle"
+                            id="graphLegendToggle"
+                            aria-expanded="true"
+                            aria-controls="graphLegendBody"
+                            title="Collapse legend"
+                            aria-label="Collapse legend"
+                        >
+                            <i data-feather="chevron-down" class="graph-legend-toggle-icon"></i>
+                        </button>
+                    </div>
+                    <div class="graph-legend-body" id="graphLegendBody">
+                        <h4 class="graph-legend-title">Nodes</h4>
+                        <ul class="graph-legend-list">
+                            <li><span class="legend-swatch legend-swatch-node legend-full"></span> Full ship (standalone pledge)</li>
+                            <li><span class="legend-swatch legend-swatch-node legend-owned"></span> In hangar (CCU chain / ticket)</li>
+                            <li><span class="legend-swatch legend-swatch-node legend-unowned"></span> Custom or filtered-out context</li>
+                        </ul>
+                        <h4 class="graph-legend-title">Links</h4>
+                        <ul class="graph-legend-list">
+                            <li><span class="legend-line legend-line-solid legend-blue"></span> Standard CCU</li>
+                            <li><span class="legend-line legend-line-dashed legend-amber"></span> CCU into a hull you already own</li>
+                            <li><span class="legend-line legend-line-solid legend-gray"></span> Buyback (when shown)</li>
+                        </ul>
+                    </div>
                 </aside>
                 <div id="nodeInfo" class="node-info hidden">
                     <h3 id="nodeTitle"></h3>
