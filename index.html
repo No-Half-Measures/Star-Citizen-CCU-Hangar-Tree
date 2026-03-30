@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Citizen CCU Chain Visualizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.9/standalone/umd/vis-network.min.js" integrity="sha384-yxKDWWf0wwdUj/gPeuL11czrnKFQROnLgY8ll7En9NYoXibgg3C6NK/UDHNtUgWJ" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <h1 class="site-header-title">SC CCU Chain Visualizer</h1>
+            <p class="site-header-note">Hangar JSON export · unlinked trees are normal when paths don’t share a hull.</p>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="upload-section">
+                    <h2>Hangar export</h2>
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="fileInput" accept=".json" hidden>
+                        <p id="fileStatus" class="file-status hidden" role="status" aria-live="polite"></p>
+                        <label for="fileInput" class="upload-button" id="uploadButtonLabel">
+                            Choose hangarlink.json
+                        </label>
+                        <p class="upload-hint">or drag and drop a <code>.json</code> export anywhere in this box</p>
+                    </div>
+                </div>
+
+                <div class="controls-section">
+                    <h2>Controls</h2>
+
+                    <div class="control-group">
+                        <h3>View Options</h3>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showOwnedOnly" checked>
+                            Show owned items only
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showUpgrades" checked>
+                            Show upgrades
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showShips" checked>
+                            Show ships
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showBuyback" checked>
+                            Show buyback pledges
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="hideRedundantCcu">
+                            Hide CCUs into hulls you already own (full)
+                        </label>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Exclude Items</h3>
+                        <div class="search-box">
+                            <input type="text" id="excludeSearch" placeholder="Search to exclude…">
+                        </div>
+                        <div id="excludeList" class="exclude-list"></div>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Add Custom Item</h3>
+                        <div class="add-item-form">
+                            <select id="addItemType">
+                                <option value="upgrade">Upgrade</option>
+                                <option value="ship">Ship</option>
+                            </select>
+                            <input type="text" id="addItemFrom" placeholder="From (ship slug)" disabled>
+                            <input type="text" id="addItemTo" placeholder="To (ship slug)">
+                            <input type="text" id="addItemName" placeholder="Item name">
+                            <button type="button" id="addItemBtn" class="btn-primary">Add Item</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visualization-area">
+                <div id="networkContainer"></div>
+                <div class="graph-toolbar" role="toolbar" aria-label="Graph view controls">
+                    <button type="button" id="btnZoomIn" class="btn-graph-overlay" title="Zoom in" aria-label="Zoom in">
+                        <i data-feather="zoom-in"></i>
+                    </button>
+                    <button type="button" id="btnZoomOut" class="btn-graph-overlay" title="Zoom out" aria-label="Zoom out">
+                        <i data-feather="zoom-out"></i>
+                    </button>
+                    <button type="button" id="btnFitView" class="btn-graph-overlay" title="Fit entire graph in view" aria-label="Fit entire graph in view">
+                        <i data-feather="maximize-2"></i>
+                    </button>
+                </div>
+                <aside class="graph-legend" aria-label="Legend">
+                    <h4 class="graph-legend-title">Nodes</h4>
+                    <ul class="graph-legend-list">
+                        <li><span class="legend-swatch legend-swatch-node legend-full"></span> Full ship (standalone pledge)</li>
+                        <li><span class="legend-swatch legend-swatch-node legend-owned"></span> In hangar (CCU chain / ticket)</li>
+                        <li><span class="legend-swatch legend-swatch-node legend-unowned"></span> Custom or filtered-out context</li>
+                    </ul>
+                    <h4 class="graph-legend-title">Links</h4>
+                    <ul class="graph-legend-list">
+                        <li><span class="legend-line legend-line-solid legend-blue"></span> Standard CCU</li>
+                        <li><span class="legend-line legend-line-dashed legend-amber"></span> CCU into a hull you already own</li>
+                        <li><span class="legend-line legend-line-solid legend-gray"></span> Buyback (when shown)</li>
+                    </ul>
+                </aside>
+                <div id="nodeInfo" class="node-info hidden">
+                    <h3 id="nodeTitle"></h3>
+                    <div id="nodeDetails"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.2/dist/feather.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
